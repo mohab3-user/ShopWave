@@ -54,7 +54,7 @@ const ProductsPage = ({ setCurrentPage, setSelectedProduct, filterCategory, setF
       default: break;
     }
     return list;
-  }, [activeCategory, sortBy, search, maxPrice]);
+  }, [productList, activeCategory, sortBy, search, maxPrice]);
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
