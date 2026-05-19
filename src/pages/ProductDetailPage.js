@@ -107,21 +107,34 @@ const ProductDetailPage = ({ product, setCurrentPage, setSelectedProduct }) => {
                 className="qty-btn"
                 onClick={() => setQuantity(q => Math.max(1, q - 1))}
                 id="qty-decrease"
+                disabled={product.stock !== undefined && product.stock <= 0}
               ><i className="fa-solid fa-minus"></i></button>
-              <span className="qty-value">{quantity}</span>
+              <span className="qty-value">{product.stock !== undefined && product.stock <= 0 ? 0 : quantity}</span>
               <button
                 className="qty-btn"
-                onClick={() => setQuantity(q => q + 1)}
+                onClick={() => setQuantity(q => {
+                  if (product.stock !== undefined && q >= product.stock) {
+                    alert(`Only ${product.stock} items available in stock.`);
+                    return q;
+                  }
+                  return q + 1;
+                })}
                 id="qty-increase"
+                disabled={product.stock !== undefined && (product.stock <= 0 || quantity >= product.stock)}
               ><i className="fa-solid fa-plus"></i></button>
             </div>
 
             <button
-              className={`btn-primary detail-add-btn ${added ? 'added' : ''}`}
+              className={`btn-primary detail-add-btn ${added ? 'added' : ''} ${product.stock !== undefined && product.stock <= 0 ? 'disabled-btn' : ''}`}
               onClick={handleAddToCart}
               id="detail-add-to-cart"
+              disabled={product.stock !== undefined && product.stock <= 0}
             >
-              {added ? (
+              {product.stock !== undefined && product.stock <= 0 ? (
+                <>
+                  <i className="fa-solid fa-circle-xmark"></i> Out of Stock
+                </>
+              ) : added ? (
                 <>
                   <i className="fa-solid fa-check"></i> Added to Cart!
                 </>
@@ -146,9 +159,17 @@ const ProductDetailPage = ({ product, setCurrentPage, setSelectedProduct }) => {
           </div>
 
           <div className="detail-meta">
-            <span><i className="fa-solid fa-circle-check" style={{ color: 'var(--accent-3)' }}></i> In Stock</span>
-            <span><i className="fa-solid fa-truck" style={{ color: 'var(--accent)' }}></i> Free Shipping</span>
-            <span><i className="fa-solid fa-rotate-left" style={{ color: 'var(--accent-2)' }}></i> 30-Day Returns</span>
+            {product.stock !== undefined && product.stock <= 0 ? (
+              <span style={{ color: 'var(--accent-2)', fontWeight: '600' }}><i className="fa-solid fa-circle-xmark"></i> Out of Stock</span>
+            ) : product.stock !== undefined && product.stock <= 5 ? (
+              <span style={{ color: 'var(--accent-2)', fontWeight: '600' }}><i className="fa-solid fa-triangle-exclamation"></i> Only {product.stock} left in stock!</span>
+            ) : (
+              <span><i className="fa-solid fa-circle-check" style={{ color: 'var(--accent-3)' }}></i> In Stock ({product.stock} available)</span>
+            )}
+            {product.seller && (
+              <span style={{ color: 'var(--accent)' }}><i className="fa-solid fa-store"></i> Sold by: <strong>{product.seller}</strong></span>
+            )}
+            <span><i className="fa-solid fa-truck" style={{ color: 'var(--accent)' }}></i> Free Shipping on $50+</span>
           </div>
         </div>
       </div>

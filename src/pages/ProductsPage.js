@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
-import { fetchProducts } from '../utils/api';
 
 const categories = ['All', 'Electronics', 'Fashion', 'Home & Kitchen', 'Sports'];
 const sortOptions = [
@@ -11,27 +10,18 @@ const sortOptions = [
   { value: 'reviews', label: 'Most Reviewed' },
 ];
 
-const ProductsPage = ({ setCurrentPage, setSelectedProduct, filterCategory, setFilterCategory }) => {
-  const [productList, setProductList] = useState([]);
+const ProductsPage = ({ setCurrentPage, setSelectedProduct, filterCategory, setFilterCategory, products }) => {
   const [activeCategory, setActiveCategory] = useState(filterCategory || 'All');
   const [sortBy, setSortBy] = useState('default');
   const [search, setSearch] = useState('');
   const [maxPrice, setMaxPrice] = useState(3000);
 
   useEffect(() => {
-    const load = async () => {
-      const data = await fetchProducts();
-      setProductList(data);
-    };
-    load();
-  }, []);
-
-  useEffect(() => {
     if (filterCategory) setActiveCategory(filterCategory);
   }, [filterCategory]);
 
   const filtered = useMemo(() => {
-    let list = [...productList];
+    let list = [...products];
 
     if (activeCategory !== 'All') {
       list = list.filter(p => p.category === activeCategory);
@@ -54,7 +44,7 @@ const ProductsPage = ({ setCurrentPage, setSelectedProduct, filterCategory, setF
       default: break;
     }
     return list;
-  }, [productList, activeCategory, sortBy, search, maxPrice]);
+  }, [products, activeCategory, sortBy, search, maxPrice]);
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
@@ -89,7 +79,7 @@ const ProductsPage = ({ setCurrentPage, setSelectedProduct, filterCategory, setF
                   >
                     {cat}
                     <span className="cat-count">
-                      {cat === 'All' ? productList.length : productList.filter(p => p.category === cat).length}
+                      {cat === 'All' ? products.length : products.filter(p => p.category === cat).length}
                     </span>
                   </button>
                 </li>

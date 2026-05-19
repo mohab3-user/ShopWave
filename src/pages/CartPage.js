@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { createOrder } from '../utils/api';
 
 const CartPage = ({ setCurrentPage, user }) => {
   const { items, removeItem, updateQuantity, clearCart, totalPrice, totalItems, savings } = useCart();
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [createdOrder, setCreatedOrder] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [promoCode, setPromoCode] = useState('');
   const [promoApplied, setPromoApplied] = useState(false);
 
@@ -19,14 +22,38 @@ const CartPage = ({ setCurrentPage, user }) => {
     }
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!user) {
       alert('Please login to complete your purchase');
       setCurrentPage('auth');
       return;
     }
-    setOrderPlaced(true);
-    clearCart();
+    setLoading(true);
+    try {
+      const orderData = {
+        buyer: user.username,
+        items: items.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+          seller: item.seller || 'ShopWave'
+        })),
+        subtotal: totalPrice,
+        shipping,
+        discount,
+        total: finalTotal
+      };
+      const res = await createOrder(orderData);
+      setCreatedOrder(res.order);
+      setOrderPlaced(true);
+      clearCart();
+    } catch (err) {
+      alert(err.message || 'Failed to place order. Please check available stock.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (orderPlaced) {
@@ -37,7 +64,8 @@ const CartPage = ({ setCurrentPage, user }) => {
           <h1>Order Placed!</h1>
           <p>Thank you for your purchase. Your order has been confirmed and will be delivered soon.</p>
           <div className="success-details">
-            <div><span>Order Number</span><strong>#SW-{Math.floor(Math.random() * 90000) + 10000}</strong></div>
+            <div><span>Order ID</span><strong>#{createdOrder ? createdOrder._id.substring(18).toUpperCase() : 'SW-0000'}</strong></div>
+            <div><span>Total Paid</span><strong>${createdOrder ? createdOrder.total.toFixed(2) : finalTotal.toFixed(2)}</strong></div>
             <div><span>Est. Delivery</span><strong>3–5 Business Days</strong></div>
             <div><span>Payment</span><strong>Confirmed ✓</strong></div>
           </div>
@@ -88,7 +116,13 @@ const CartPage = ({ setCurrentPage, user }) => {
                   <div className="cart-item-info">
                     <h4>{item.name}</h4>
                     <span className="cart-item-cat">{item.category}</span>
-                    <span className="cart-item-instock"><i className="fa-solid fa-check"></i> In Stock</span>
+                    <span className="cart-item-instock">
+                      {item.stock !== undefined && item.stock <= 5 ? (
+                        <span style={{ color: 'var(--accent-2)', fontWeight: '600' }}><i className="fa-solid fa-triangle-exclamation"></i> Only {item.stock} left</span>
+                      ) : (
+                        <span><i className="fa-solid fa-check"></i> In Stock</span>
+                      )}
+                    </span>
                   </div>
                 </div>
 
@@ -103,8 +137,16 @@ const CartPage = ({ setCurrentPage, user }) => {
                   <span className="qty-value">{item.quantity}</span>
                   <button
                     className="qty-btn"
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    onClick={() => {
+                      if (item.stock !== undefined && item.quantity >= item.stock) {
+                        alert(`Only ${item.stock} items available in stock.`);
+                        return;
+                      }
+                      updateQuantity(item.id, item.quantity + 1);
+                    }}
                     id={`cart-qty-inc-${item.id}`}
+                    disabled={item.stock !== undefined && item.quantity >= item.stock}
+                    style={{ opacity: item.stock !== undefined && item.quantity >= item.stock ? 0.5 : 1 }}
                   ><i className="fa-solid fa-plus"></i></button>
                 </div>
 
@@ -196,8 +238,14 @@ const CartPage = ({ setCurrentPage, user }) => {
             className="checkout-btn"
             onClick={handleCheckout}
             id="checkout-btn"
+            disabled={loading}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
           >
-            Proceed to Checkout <i className="fa-solid fa-arrow-right"></i>
+            {loading ? (
+              <>Placing Order <i className="fa-solid fa-spinner fa-spin"></i></>
+            ) : (
+              <>Proceed to Checkout <i className="fa-solid fa-arrow-right"></i></>
+            )}
           </button>
 
           <div className="secure-badges">

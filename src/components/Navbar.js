@@ -54,6 +54,7 @@ const Navbar = ({ currentPage, setCurrentPage, user, handleLogout }) => {
                 <span className="user-name">{user.username}</span>
               </button>
               <div className="dropdown-content">
+                <button onClick={() => setCurrentPage('profile')}><i className="fa-solid fa-circle-user"></i> My Profile</button>
                 <button onClick={handleLogout}><i className="fa-solid fa-right-from-bracket"></i> Logout</button>
               </div>
             </div>
@@ -93,9 +94,14 @@ const Navbar = ({ currentPage, setCurrentPage, user, handleLogout }) => {
             </button>
           ))}
           {user ? (
-            <button className="mobile-nav-link" onClick={handleLogout}>
-              <i className="fa-solid fa-right-from-bracket"></i> Logout ({user.username})
-            </button>
+            <>
+              <button className={`mobile-nav-link ${currentPage === 'profile' ? 'active' : ''}`} onClick={() => { setCurrentPage('profile'); setMenuOpen(false); }}>
+                <i className="fa-solid fa-circle-user"></i> My Profile
+              </button>
+              <button className="mobile-nav-link" onClick={handleLogout}>
+                <i className="fa-solid fa-right-from-bracket"></i> Logout ({user.username})
+              </button>
+            </>
           ) : (
             <button className="mobile-nav-link" onClick={() => { setCurrentPage('auth'); setMenuOpen(false); }}>
               <i className="fa-solid fa-user"></i> Login / Sign Up

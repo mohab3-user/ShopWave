@@ -11,7 +11,8 @@
     "badge": "Best Seller",
     "description": "Industry-leading noise canceling with Dual Noise Sensor technology. Up to 30-hour battery life with quick charging. Crystal clear hands-free calling.",
     "features": ["30hr Battery", "ANC", "Bluetooth 5.2", "Touch Controls"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 2,
@@ -25,7 +26,8 @@
     "badge": "New",
     "description": "Supercharged by M3 Pro chip. Up to 18 hours of battery life. Stunning Liquid Retina XDR display.",
     "features": ["M3 Pro Chip", "18hr Battery", "Liquid XDR Display", "18GB RAM"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 3,
@@ -39,7 +41,8 @@
     "badge": "Hot Deal",
     "description": "200MP camera with AI-powered features. Titanium frame. Integrated S Pen. 5000mAh battery.",
     "features": ["200MP Camera", "S Pen", "5000mAh", "Titanium Frame"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 4,
@@ -53,7 +56,8 @@
     "badge": "Sale",
     "description": "The ultimate iPad experience with M2 chip, Liquid Retina XDR display, and Wi-Fi 6E support.",
     "features": ["M2 Chip", "Liquid XDR", "Wi-Fi 6E", "ProMotion"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 5,
@@ -67,7 +71,8 @@
     "badge": "Popular",
     "description": "The Nike Air Max 270 delivers a big Air unit underfoot for all-day comfort. Inspired by two icons.",
     "features": ["Air Max Unit", "Breathable Mesh", "Foam Midsole", "Rubber Outsole"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 6,
@@ -81,7 +86,8 @@
     "badge": "Sale",
     "description": "Modern slim fit jeans with stretch technology for all-day comfort. Classic 5-pocket styling.",
     "features": ["Slim Fit", "Stretch Fabric", "Classic Style", "Durable"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 7,
@@ -95,7 +101,8 @@
     "badge": "Classic",
     "description": "The iconic Ray-Ban Aviator with crystal lenses for 100% UV protection. Timeless gold frame.",
     "features": ["UV400 Protection", "Crystal Lens", "Gold Frame", "Spring Hinge"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 8,
@@ -109,7 +116,8 @@
     "badge": "New",
     "description": "Experience the unrivaled energy return of BOOST midsole. Primeknit+ upper adapts to your foot.",
     "features": ["BOOST Midsole", "Primeknit+", "Continental Rubber", "Torsion System"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 9,
@@ -123,7 +131,8 @@
     "badge": "Best Seller",
     "description": "Brew 5 cup sizes with one touch. Centrifusion technology for perfect crema every time.",
     "features": ["5 Cup Sizes", "Centrifusion Tech", "Fast Heat", "Connected App"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 10,
@@ -137,7 +146,8 @@
     "badge": "Premium",
     "description": "Laser detects hidden dust. Automatically adapts suction power to the floor type and mess.",
     "features": ["Laser Detect", "Auto Boost", "60min Battery", "HEPA Filter"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 11,
@@ -151,7 +161,8 @@
     "badge": "Hot Deal",
     "description": "Replace 7 kitchen appliances. Pressure cook, slow cook, rice cooker, steamer, and more.",
     "features": ["7-in-1", "6 Qt Capacity", "Safety Features", "Easy Clean"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 12,
@@ -165,7 +176,8 @@
     "badge": "Icon",
     "description": "The iconic KitchenAid Stand Mixer with 5-quart stainless steel bowl. 10 speeds, 59 touch points.",
     "features": ["5 Qt Bowl", "10 Speeds", "59 Attachments", "Tilt-Head"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 13,
@@ -179,7 +191,8 @@
     "badge": "Premium",
     "description": "Auto-resistance adjusts in real time to your instructor's cues. Rotating 23.8\" HD touchscreen.",
     "features": ["Auto-Resistance", "23.8\" Screen", "Apple GymKit", "Live Classes"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 14,
@@ -193,7 +206,8 @@
     "badge": "Top Pick",
     "description": "Multi-sport GPS smartwatch with solar charging. Advanced health monitoring and navigation.",
     "features": ["Solar Charging", "GPS", "Health Monitor", "18-day Battery"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 15,
@@ -207,7 +221,8 @@
     "badge": "Pro Choice",
     "description": "Used by Roger Federer. RF97 Autograph edition. Carbon fiber construction for ultimate control.",
     "features": ["97 sq in Head", "340g Weight", "Carbon Fiber", "RF Autograph"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   },
   {
     "id": 16,
@@ -221,6 +236,7 @@
     "badge": "Fan Fav",
     "description": "Double-wall vacuum insulation keeps drinks cold for 24 hours or hot for 12 hours.",
     "features": ["24hr Cold", "12hr Hot", "18/8 Steel", "Dishwasher Safe"],
-    "inStock": true
+    "stock": 15,
+    "seller": "ShopWave"
   }
 ]

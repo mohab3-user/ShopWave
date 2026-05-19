@@ -12,7 +12,8 @@ const productSchema = new mongoose.Schema({
   badge: { type: String },
   description: { type: String },
   features: [{ type: String }],
-  inStock: { type: Boolean, default: true }
+  stock: { type: Number, default: 15 },
+  seller: { type: String, default: 'ShopWave' }
 });
 
 module.exports = mongoose.model('Product', productSchema);

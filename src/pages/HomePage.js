@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
-import { fetchProducts } from '../utils/api';
 
 const categories = [
   { name: 'Electronics', icon: 'fa-laptop', count: 4, color: '#6C63FF' },
@@ -9,17 +8,13 @@ const categories = [
   { name: 'Sports', icon: 'fa-volleyball', count: 4, color: '#F093FB' },
 ];
 
-const HomePage = ({ setCurrentPage, setSelectedProduct, setFilterCategory }) => {
+const HomePage = ({ setCurrentPage, setSelectedProduct, setFilterCategory, products }) => {
   const [featured, setFeatured] = useState([]);
 
   useEffect(() => {
-    const loadFeatured = async () => {
-      const allProducts = await fetchProducts();
-      const featuredIds = [1, 5, 9, 13, 3, 8];
-      setFeatured(allProducts.filter(p => featuredIds.includes(p.id)));
-    };
-    loadFeatured();
-  }, []);
+    const featuredIds = [1, 5, 9, 13, 3, 8];
+    setFeatured(products.filter(p => featuredIds.includes(p.id)));
+  }, [products]);
   const handleProductClick = (product) => {
     setSelectedProduct(product);
     setCurrentPage('product-detail');

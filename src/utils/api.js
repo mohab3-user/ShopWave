@@ -53,3 +53,83 @@ export const signupUser = async (userData) => {
     throw error;
   }
 };
+
+export const createOrder = async (orderData) => {
+  try {
+    const response = await fetch(`${API_URL}/orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Order placement failed');
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchOrdersByBuyer = async (username) => {
+  try {
+    const response = await fetch(`${API_URL}/orders/buyer/${username}`);
+    if (!response.ok) throw new Error('Failed to fetch order history');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching buyer orders:', error);
+    return [];
+  }
+};
+
+export const fetchOrdersBySeller = async (username) => {
+  try {
+    const response = await fetch(`${API_URL}/orders/seller/${username}`);
+    if (!response.ok) throw new Error('Failed to fetch sales history');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching seller orders:', error);
+    return [];
+  }
+};
+
+export const createProduct = async (productData) => {
+  try {
+    const response = await fetch(`${API_URL}/products`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(productData),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Product creation failed');
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateProduct = async (id, productData) => {
+  try {
+    const response = await fetch(`${API_URL}/products/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(productData),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Product update failed');
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteProduct = async (id, seller) => {
+  try {
+    const response = await fetch(`${API_URL}/products/${id}?seller=${encodeURIComponent(seller)}`, {
+      method: 'DELETE',
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Product deletion failed');
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
